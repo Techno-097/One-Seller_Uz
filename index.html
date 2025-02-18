@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>One Seller Uz</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&family=Rubik:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        /* General reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html,
+        body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            font-family: 'Poppins', sans-serif;
+            overflow-x: hidden; /* Prevent horizontal scroll */
+        }
+
+        body {
+            background: linear-gradient(135deg, #1a202c, #2d3748);
+            color: #fff;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: center;
+            min-height: 100vh;
+            overflow-y: auto; /* Allow vertical scroll */
+        }
+
+        .container {
+            background: rgba(0, 0, 0, 0.7);
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+            padding: 40px;
+            max-width: 1200px;
+            width: 100%;
+            text-align: center;
+            margin-top: 50px;
+            transition: transform 0.3s ease;
+        }
+
+        h1 {
+            font-size: 48px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: #fff;
+            text-shadow: 0 0 20px #00FF00;
+        }
+
+        h2 {
+            font-size: 28px;
+            margin-bottom: 20px;
+            color: #fff;
+            text-shadow: 0 0 20px #00FF00;
+        }
+
+        .button-container {
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .button-container button {
+            padding: 18px 28px;
+            font-size: 22px;
+            font-weight: bold;
+            background: linear-gradient(45deg, #00FF00, #00b300);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            text-shadow: 0 0 10px #00FF00;
+            box-shadow: 0 0 10px #00FF00, 0 0 20px #00FF00, 0 0 30px #00FF00;
+            transition: transform 0.3s ease, box-shadow 0.3s ease, text-shadow 0.3s ease;
+        }
+
+        /* Hover holatida neon effekt */
+        .button-container button:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 20px #00FF00, 0 0 40px #00FF00, 0 0 60px #00FF00, 0 0 80px #00FF00;
+            text-shadow: 0 0 20px #00FF00, 0 0 30px #00FF00, 0 0 40px #00FF00;
+        }
+
+        #packages-section {
+            display: none;
+            margin-top: 30px;
+        }
+
+        .package-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+        }
+
+        .package-card {
+            background: #1c1c1c;
+            padding: 25px;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 8px 25px rgba(0, 255, 0, 0.3);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .package-card:hover {
+            transform: translateY(-15px);
+            box-shadow: 0 12px 30px rgba(0, 255, 0, 0.5);
+        }
+
+        .back-button,
+        .contact-admin {
+            margin-top: 20px;
+            padding: 18px 35px;
+            background: linear-gradient(45deg, #00FF00, #00b300);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            font-size: 18px;
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .back-button:hover,
+        .contact-admin:hover {
+            transform: scale(1.1);
+            box-shadow: 0 8px 20px rgba(0, 255, 0, 0.6);
+        }
+
+        /* Mobile responsiveness */
+        @media (max-width: 768px) {
+            .container {
+                width: 100%;
+                padding: 20px;
+            }
+
+            .button-container {
+                color: black;
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .package-container {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Assalomu Alaykum!</h1>
+        <h2>One Seller Uz ga xush kelibsiz!</h2>
+        <p>Quyidagi xizmatlardan birini tanlang:</p>
+        <br>
+        <br>
+        <div class="button-container">
+            <br>
+            <button onclick="showPackages('Telegram Stars')">⭐ Telegram Stars</button>
+            <br>
+            <button onclick="showPackages('UC Service')">🎮 UC Service</button>
+            <br>
+            <button onclick="showPackages('Telegram Premium')">✨ Telegram Premium</button>
+        </div>
+        <div id="packages-section">
+            <h2 id="service-title"></h2>
+            <div class="package-container" id="package-list"></div>
+            <div id="selected-package" style="display: none;">
+                <br>
+                <h3 id="selected-packages-name">Tanlangan Paket:</h3>
+                <br>
+                <br>
+                <p id="selected-package-name"></p>
+                <p id="selected-package-price"></p>
+            </div>
+            <button class="back-button" onclick="goBack()">🔙 Bosh menyuga qaytish</button>
+            <br>
+            <button class="contact-admin" onclick="contactAdmin()">📝 Ushbu paketni xarid qilish uchun adminga murojaat qiling</button>
+        </div>
+    </div>
+
+    <script>
+        const services = {
+            "Telegram Stars": [
+                { name: "⭐ 100 Stars", price: "27,000 UZS" },
+                { name: "⭐ 150 Stars", price: "38,999 UZS" },
+                { name: "⭐ 250 Stars", price: "62,999 UZS" },
+                { name: "⭐ 350 Stars", price: "85,999 UZS" },
+                { name: "⭐ 500 Stars", price: "119,999 UZS" },
+                { name: "⭐ 750 Stars", price: "177,999 UZS" },
+                { name: "⭐ 1,000 Stars", price: "235,999 UZS" },
+                { name: "⭐ 1,500 Stars", price: "352,999 UZS" },
+                { name: "⭐ 2,500 Stars", price: "582,999 UZS" },
+                { name: "⭐ 5,000 Stars", price: "1,162,999 UZS" },
+                { name: "⭐ 10,000 Stars", price: "2,303,999 UZS" },
+                { name: "⭐ 25,000 Stars", price: "5,803,999 UZS" },
+                { name: "⭐ 50,000 Stars", price: "11,603,999 UZS" },
+                { name: "⭐ 100,000 Stars", price: "23,004,999 UZS" },
+                { name: "⭐ 150,000 Stars", price: "35,004,999 UZS" }
+            ],
+            "UC Service": [
+                { name: "🎮 30 + 2 UC", price: "7,200 UZS" },
+                { name: "🎮 60 + 3 UC", price: "12,500 UZS" },
+                { name: "🎮 300 + 40 UC", price: "61,000 UZS" },
+                { name: "🎮 600 + 90 UC", price: "118,500 UZS" },
+                { name: "🎮 1500 + 375 UC", price: "295,000 UZS" },
+                { name: "🎮 3000 + 1000 UC", price: "582,000 UZS" },
+                { name: "🎮 6000 + 2400 UC", price: "1,130,000 UZS" },
+                { name: "🎮 12000 + 4800 UC", price: "2,370,000 UZS" },
+                { name: "🎮 18000 + 7200 UC", price: "3,530,000 UZS" },
+                { name: "🎮 24000 + 9600 UC", price: "4,720,000 UZS" },
+                { name: "🎮 30000 + 12000 UC", price: "5,883,000 UZS" },
+                { name: "🎮 60000 + 24000 UC", price: "11,705,000 UZS" }
+            ],
+            "Telegram Premium": [
+                { name: "✨ 1 oylik Premium", price: "45,000 UZS" },
+                { name: "✨ 1 yillik Premium", price: "285,000 UZS" },
+                { name: "🎁 3 oylik Premium (sovg'a)", price: "165,000 UZS" },
+                { name: "🎁 6 oylik Premium (sovg'a)", price: "215,000 UZS" },
+                { name: "🎁 1 yillik Premium (sovg'a)", price: "380,000 UZS" }
+            ]
+        };
+
+        function showPackages(service) {
+            const packageList = document.getElementById('package-list');
+            const serviceTitle = document.getElementById('service-title');
+            packageList.innerHTML = '';
+            serviceTitle.textContent = service;
+            const packages = services[service];
+            packages.forEach(function(pkg) {
+                const packageItem = document.createElement('div');
+                packageItem.classList.add('package-card');
+                packageItem.innerHTML = `
+                    <h3>${pkg.name}</h3>
+                    <p>${pkg.price}</p>
+                    
+                    <button onclick="selectPackage('${pkg.name}', '${pkg.price}')">Tanlash</button>
+                `;
+                packageList.appendChild(packageItem);
+            });
+            document.getElementById('packages-section').style.display = "block";
+        }
+
+        function selectPackage(name, price) {
+            document.getElementById('selected-package-name').textContent = name;
+            document.getElementById('selected-package-price').textContent = price;
+            document.getElementById('selected-package').style.display = "block";
+        }
+
+        function goBack() {
+            document.getElementById("packages-section").style.display = "none";
+        }
+
+        function contactAdmin() {
+            window.open("https://t.me/Makhsudovv_WEB"); // Replace "USERNAME" with admin's Telegram username
+        }
+    </script>
+</body>
+
+</html>
